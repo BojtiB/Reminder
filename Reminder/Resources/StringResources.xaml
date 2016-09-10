@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Reminder.Resources"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="people">People</system:String>
+    <system:String x:Key="add">Add</system:String>
+    <system:String x:Key="view_all">View all</system:String>
+    <system:String x:Key="search">Search</system:String>
+    <system:String x:Key="find">Find</system:String>
+
+    <system:String x:Key="name">Name</system:String>
+    <system:String x:Key="birthday">Birthday</system:String>
+    <system:String x:Key="nameday">Nameday</system:String>
+    <system:String x:Key="save">Save</system:String>
+    <system:String x:Key="close">Close</system:String>
+
+    <system:String x:Key="Age">age</system:String>
+    <system:String x:Key="day_left">Day left</system:String>
+</ResourceDictionary>

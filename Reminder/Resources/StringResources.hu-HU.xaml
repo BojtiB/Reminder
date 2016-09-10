@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Reminder.Resources"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+   
+    <system:String x:Key="people">Emberek</system:String>
+    <system:String x:Key="add">Hozzáad</system:String>
+    <system:String x:Key="view_all">Összes mutatása</system:String>
+    <system:String x:Key="search">Keresés</system:String>
+    <system:String x:Key="find">Keres</system:String>
+
+    <system:String x:Key="name">Név</system:String>
+    <system:String x:Key="birthday">Születésnap</system:String>
+    <system:String x:Key="nameday">Névnap</system:String>
+    <system:String x:Key="save">Mentés</system:String>
+    <system:String x:Key="close">Bezár</system:String>
+
+    <system:String x:Key="age">Kor</system:String>
+    <system:String x:Key="day_left">Hátralévő napok</system:String>
+</ResourceDictionary>
