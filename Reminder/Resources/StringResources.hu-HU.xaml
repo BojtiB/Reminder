@@ -2,10 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Reminder.Resources"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-   
+
+    <system:String x:Key="add_person_window">Ember felvétele/szerkesztése</system:String>
+    <system:String x:Key="reminder">Emlékeztető</system:String>
+    <system:String x:Key="exit">Kilépés</system:String>
+
     <system:String x:Key="people">Emberek</system:String>
     <system:String x:Key="add">Hozzáad</system:String>
+    <system:String x:Key="upcoming_events">Közelgő események</system:String>
     <system:String x:Key="view_all">Összes mutatása</system:String>
+    
     <system:String x:Key="search">Keresés</system:String>
     <system:String x:Key="find">Keres</system:String>
 
@@ -17,4 +23,19 @@
 
     <system:String x:Key="age">Kor</system:String>
     <system:String x:Key="day_left">Hátralévő napok</system:String>
+
+    <system:String x:Key="saving">Mentés...</system:String>
+    <system:String x:Key="please_fill_the_name">Kérlek töltsd ki a név mezőt!</system:String>
+    <system:String x:Key="updated">frissítve!</system:String>
+    <system:String x:Key="saved">mentve!</system:String>
+    <system:String x:Key="deleted">törölve!</system:String>
+    <system:String x:Key="are_you_sure_to_delete">Biztosan törli a következő nevű embert: </system:String>
+    <system:String x:Key="please_confirm">Kérem válaszzon!</system:String>
+    
+    <system:String x:Key="day_left_">nap van hátra</system:String>
+    <system:String x:Key="upcoming_namedays">Közelgő névnapok: </system:String>
+    <system:String x:Key="upcoming_birthdays">Közelgő szülinapok: </system:String>
+    <system:String x:Key="remind_you_later">Emlékeztessem később?</system:String>
+
+
 </ResourceDictionary>

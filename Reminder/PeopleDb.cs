@@ -1,44 +1,52 @@
-﻿using LinqToDB;
-using LinqToDB.Data;
-using LinqToDB.Common;
-using Reminder.Model;
-using System;
-using System.Collections;
+﻿using Reminder.Model;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using Reminder.Wrappers;
 using System.Linq;
 
 namespace Reminder
 {
-    internal class PeopleDb
+    public class PeopleDb
     {
-
-        public PeopleDb()
-        {
-            using (var db = new DataConnection())
-            {
-                try { db.CreateTable<Person>(); } catch (Exception) { }
-            }
-        }
 
         public void AddPerson(Person person)
         {
-            using (var db = new DataConnection())
+            using (var db = new PeopleDbContext())
             {
-                db.Insert(person);
+                db.People.Add(person);
+                db.SaveChanges();
             }
         }
 
-        public IEnumerable<PersonWrapper> GetPeople()
+        public IEnumerable<Person> GetPeople()
         {
-            using (var db = new DataConnection())
+            using (var db = new PeopleDbContext())
             {
-                var people = from p in db.GetTable <Person>()
-                             select p;
-                var peopleWrapped = people.Select(p => new PersonWrapper(p));
-                return peopleWrapped;
+                return db.People.ToList();
+            }
+        }
+
+        public IEnumerable<PersonWrapper> GetPeopleWrapped()
+        {
+            return this.GetPeople().Select(p => new PersonWrapper(p));
+        }
+
+        public void UpdatePerson(Person person)
+        {
+            using (var db = new PeopleDbContext())
+            {
+                var original = db.People.Find(person.Id);
+                db.Entry(original).CurrentValues.SetValues(person);
+                db.SaveChanges();
+            }
+        }
+
+        public void DeletePerson(Person person)
+        {
+            using (var db = new PeopleDbContext())
+            {
+                db.People.Attach(person);
+                db.People.Remove(person);
+                db.SaveChanges();
             }
         }
     }

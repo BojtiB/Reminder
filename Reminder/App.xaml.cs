@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Reminder.Wrappers;
+using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 
@@ -10,6 +13,9 @@ namespace Reminder
     /// </summary>
     public partial class App : Application
     {
+        private readonly PeopleDb db = new PeopleDb();
+
+        private readonly BackgroundWorker worker = new BackgroundWorker();
         private System.Windows.Forms.NotifyIcon _notifyIcon;
         private bool _isExit;
 
@@ -17,7 +23,7 @@ namespace Reminder
         {
             base.OnStartup(e);
             this.SetLanguageDictionary();
-            MainWindow = new MainWindow();
+            MainWindow = new MainWindow(this.db);
             MainWindow.Closing += MainWindow_Closing;
 
             _notifyIcon = new System.Windows.Forms.NotifyIcon();
@@ -25,7 +31,62 @@ namespace Reminder
             _notifyIcon.Icon = Reminder.Properties.Resources.AppIcon;
             _notifyIcon.Visible = true;
 
-            CreateContextMenu();
+            this.CreateContextMenu();
+
+            this.worker.DoWork += Worker_DoWork;
+            this.worker.RunWorkerAsync();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                var birhtdays = from pw in db.GetPeopleWrapped()
+                                where pw.DayUntilBirthday < 3
+                                select pw;
+
+                var namedays = from pw in db.GetPeopleWrapped()
+                               where pw.DayUntilNameday < 3
+                               select pw;
+
+                StringBuilder stringBuilder = new StringBuilder();
+                if (birhtdays.Count() > 0)
+                {
+
+                    stringBuilder.AppendLine($"{Application.Current.Resources["upcoming_birthdays"]}");
+                    foreach (var bd in birhtdays)
+                    {
+                        stringBuilder.AppendLine($"{bd.Name} {bd.DayUntilBirthday} {Application.Current.Resources["day_left_"]}!");
+                    }
+
+                    stringBuilder.AppendLine();
+                }
+
+                if (namedays.Count() > 0)
+                {
+                    stringBuilder.AppendLine($"{Application.Current.Resources["upcoming_namedays"]}");
+
+                    foreach (var nd in namedays)
+                    {
+                        stringBuilder.AppendLine($"{nd.Name} {nd.DayUntilNameday} {Application.Current.Resources["day_left_"]}!");
+                    }
+                }
+
+
+                stringBuilder.AppendLine();
+                stringBuilder.AppendLine($"{Application.Current.Resources["remind_you_later"]}");
+
+                if (namedays.Count() > 0 || birhtdays.Count() > 0)
+                {
+                    if (MessageBox.Show(stringBuilder.ToString(), $"{ Application.Current.Resources["reminder"]}", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        break;
+                    }
+                }
+
+                // Remind every 20th minutes
+                Thread.Sleep(1000 * 60 * 20);
+            }
         }
 
         private void SetLanguageDictionary()
@@ -49,8 +110,8 @@ namespace Reminder
         {
             _notifyIcon.ContextMenuStrip =
               new System.Windows.Forms.ContextMenuStrip();
-            _notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
-            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
+            _notifyIcon.ContextMenuStrip.Items.Add($"{Application.Current.Resources["upcoming_events"]}").Click += (s, e) => ShowMainWindow();
+            _notifyIcon.ContextMenuStrip.Items.Add($"{Application.Current.Resources["exit"]}").Click += (s, e) => ExitApplication();
         }
 
         private void ExitApplication()
@@ -59,6 +120,7 @@ namespace Reminder
             MainWindow.Close();
             _notifyIcon.Dispose();
             _notifyIcon = null;
+            App.Current.Shutdown();
         }
 
         private void ShowMainWindow()

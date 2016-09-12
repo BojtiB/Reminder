@@ -2,8 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Reminder.Resources"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="add_person_window">Add or modify people</system:String>
+    <system:String x:Key="reminder">Reminder</system:String>
+    <system:String x:Key="exit">Exit</system:String>
+
     <system:String x:Key="people">People</system:String>
     <system:String x:Key="add">Add</system:String>
+    <system:String x:Key="upcoming_events">Upcoming events</system:String>
     <system:String x:Key="view_all">View all</system:String>
     <system:String x:Key="search">Search</system:String>
     <system:String x:Key="find">Find</system:String>
@@ -14,6 +20,21 @@
     <system:String x:Key="save">Save</system:String>
     <system:String x:Key="close">Close</system:String>
 
-    <system:String x:Key="Age">age</system:String>
+    <system:String x:Key="age">age</system:String>
     <system:String x:Key="day_left">Day left</system:String>
+
+    <system:String x:Key="saving">Saving...</system:String>
+    <system:String x:Key="please_fill_the_name">Please fill the name!</system:String>
+    <system:String x:Key="updated">updated!</system:String>
+    <system:String x:Key="saved">saved!</system:String>
+    <system:String x:Key="deleted">deleted!</system:String>
+    <system:String x:Key="are_you_sure_to_delete">Are you sure to delete </system:String>
+    <system:String x:Key="please_confirm">Please confirm!</system:String>
+
+    <system:String x:Key="day_left_">day left</system:String>
+    <system:String x:Key="upcoming_namedays">Upcoming namedays:</system:String>
+    <system:String x:Key="upcoming_birthdays">Upcoming birthdays:</system:String>
+    <system:String x:Key="remind_you_later">Remind you later?</system:String>
+    
+    
 </ResourceDictionary>

@@ -1,0 +1,6 @@
+﻿CREATE TABLE `People` (
+	`Id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Name`	NVarChar(255) NOT NULL,
+	`Birthday`	DateTime2 NOT NULL,
+	`Nameday`	DateTime2 NOT NULL
+);

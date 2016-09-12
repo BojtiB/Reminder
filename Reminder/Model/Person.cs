@@ -1,6 +1,8 @@
-﻿using LinqToDB.Mapping;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using System.Windows;
 
 namespace Reminder.Model
 {
@@ -24,18 +26,19 @@ namespace Reminder.Model
             this.Nameday = nameday;
         }
 
-        [PrimaryKey, Identity]
+        [Key]
         public int Id { get; set; }
-        [Column, NotNull]
+        [Column, Required]
         public string Name { get; set; }
-        [Column, NotNull]
+        [Column, Required]
         public DateTime Birthday { get; set; }
-        [Column, NotNull]
+        [Column, Required]
         public DateTime Nameday { get; set; }
 
         public override string ToString()
         {
-            return $"{this.Name} Birthday:{this.Birthday.ToString("yyyy.MMMM.dd", CultureInfo.CurrentCulture)} Nameday:{this.Nameday.ToString("MMMM dd", CultureInfo.CurrentCulture)}";
+            return $"{this.Name} {Application.Current.Resources["birthday"]}: {this.Birthday.ToString("yyyy.MMMM.dd", CultureInfo.CurrentCulture)} "+
+                $"{Application.Current.Resources["nameday"]}: {this.Nameday.ToString("MMMM dd", CultureInfo.CurrentCulture)}";
         }
     }
 }

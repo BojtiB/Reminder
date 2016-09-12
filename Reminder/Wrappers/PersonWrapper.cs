@@ -59,25 +59,31 @@ namespace Reminder.Wrappers
 
         private int CalculateDayUntilEvent(DateTime date)
         {
-            int deduction = 0;
+            int deductionOfEvent = 0;
+            int deductionOfUntilNumberOfDays = 0;
             var nowYear = DateTime.Now.Year;
             if (!DateTime.IsLeapYear(nowYear))
             {
                 if (date.Month == 2 && date.Day == 29)
                 {
-                    deduction = 1;
+                    deductionOfEvent = 1;
                 }
             }
+            else
+            {
+                deductionOfUntilNumberOfDays = 1;
+            }      
             var dayOfYearEvent = new DateTime(
                     nowYear,
                     date.Month,
-                    date.Day - deduction).DayOfYear;
+                    date.Day - deductionOfEvent).DayOfYear;
 
             var dayOfYearNow = DateTime.Now.DayOfYear;
             int untilNumberOfDays = 0;
             if (dayOfYearNow > dayOfYearEvent)
-            {
-                untilNumberOfDays = dayOfYearEvent + (new DateTime(nowYear, 12, 31).DayOfYear) - dayOfYearNow;
+            {   
+                untilNumberOfDays = dayOfYearEvent + (new DateTime(nowYear, 12, 31).DayOfYear) 
+                    - dayOfYearNow - deductionOfUntilNumberOfDays;
             }
             else
             {
